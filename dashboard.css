@@ -1,0 +1,39 @@
+.icon-user{
+    font-size: 150px;
+}
+
+.list-card{
+    list-style-type: none;
+    padding: 20px;
+    margin-left: -50px;
+}
+
+.card-container{
+    box-shadow: 1px 1px 5px;
+    padding: 10px;
+    width: 900px;
+    position: relative;
+    left: 100px;
+}
+
+.row-profile{
+    position: relative;
+    left: 100px;
+}
+
+.link-item{
+    position: relative;
+    right: 100px;
+}
+
+.fa-heart{
+    float: right;  
+}
+.btn{
+    width: 150px;
+    float: right;;
+}
+
+.Interested-heading{
+    text-align: center;
+}
