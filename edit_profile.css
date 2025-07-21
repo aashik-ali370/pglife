@@ -1,0 +1,19 @@
+.profile-img{
+    width: 120px;
+    height: 140px;
+    border: 1px solid green;
+    padding: 2px;
+    border-radius: 50%;
+    object-fit: cover;    
+}
+
+.form-control-1{
+    border: none;
+}
+
+@media(max-width: 768px){
+    .update-btn{
+        display: flex;
+        justify-content: center;
+    }
+}
