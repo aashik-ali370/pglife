@@ -27,7 +27,8 @@ if (!$user) {
 
 // update profile while insertin form data into users table
 
-if($_POST['update']){
+if(isset($_POST['update'])){
+
     $full_name = $_POST['full_name'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
@@ -36,7 +37,19 @@ if($_POST['update']){
     $college_name = $_POST['college_name'];
     $gender = $_POST['gender'];
 
-    $sql = "UPDATE users SET email='$email', password='$password',
+    if (isset($_FILES['image'])) {
+        $image = $_FILES['image'];
+    }
+    // Get details
+    $imageName = $image['name'];
+    $tmpName = $image['tmp_name'];
+    $uploadDir = 'uploaded_image/';
+    $targetPath = $uploadDir . basename($imageName);
+   
+    // Move the uploaded file
+    move_uploaded_file($tmpName, $targetPath);
+
+    $sql = "UPDATE users SET user_profile='$targetPath', email='$email', password='$password',
     full_name='$full_name', phone='$phone', gender='$gender', college_name='$college_name' WHERE id='$user_id'";
 
     $result = mysqli_query($conn, $sql);
@@ -64,16 +77,22 @@ mysqli_close($conn);
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-       
+    <link rel="stylesheet" href="css/edit_profile.css"> 
     <title>Edit Profile! | PGLife</title>
   </head>
   <body class="bg-light">
-    <div class="">
+    <div>
         <div class="container">
             <h1 class="text-center pt-5 text-warning">Edit Profile!</h1>
             
             <!-- form -->
-            <form class="form" role="form" action="#" method="post" id="edit-profile">
+            <form class="form" role="form" action="#" method="post" id="edit-profile" enctype="multipart/form-data">
+                
+                <div class="mb-3">
+                    <img class="profile-img" src="../project/api/<?=$user['user_profile']; ?>">
+                    <input type="file" class="form-control" name="image">
+                </div>
+
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Full name</label>
                     <input type="text" class="form-control" id="fullname" Required name="full_name" value="<?=$user['full_name'];?>">
@@ -97,25 +116,7 @@ mysqli_close($conn);
                     <input type="text" class="form-control" Required name="college_name" value="<?=$user['college_name'];?>">
                 </div>
 
-                <div class="form-group">
-                    <select name="college_name" class="form-select" aria-label="Default select example">
-                        <option value="">Select</option>
-                        <option value="dav"
-                            <?php 
-                                if($user['college_name'] =='dav')
-                                echo "selected";
-                            ?>
-                        >
-                        DAV college</option>
-                        <option value="learnvern"
-                            <?php 
-                                if($user['college_name']=='learnvern')
-                                echo "selected";
-                            ?>
-                        >
-                        LearnVern foundation</option>
-                    </select>
-                </div>
+                <label for="gender" class="form-label">Gender</label>
 
                 <div class="form-group">
                     <select name="gender" class="form-select" aria-label="Default select example">
@@ -136,13 +137,14 @@ mysqli_close($conn);
                         female</option>
                     </select>
                 </div><br>
-                <button type="submit" class="btn btn-primary" name="update" value="update" >Update</button>
+                <div class="update-btn">
+                    <button type="submit" class="btn btn-primary" name="update" value="update" >Update</button>
+                </div>
             </form>
         </div>
         </div>
          
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-       <script type="text/javascript" src="js/common.js"></script>
   </body>
 </html>

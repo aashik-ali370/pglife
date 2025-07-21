@@ -38,14 +38,16 @@ if (!$user) {
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard | PG Life</title>
-
     <?php
-    include "include/head_links.php";
+        include "include/head_links.php";
     ?>
+
     <link href="css/dashboard1.css" rel="stylesheet" />
+
 </head>
 
 <body>
+
     <?php
     include "include/header.php";
     ?>
@@ -65,20 +67,18 @@ if (!$user) {
         <h1 class="profile-heading">My Profile</h1>
         <div class="row">
             <div class="col-md-3 profile-img-container">
-                <i class="fas fa-user profile-img"></i>
+                <img src="/project/api/<?= $user['user_profile'] ?>" class="profile-img">
             </div>
             <div class="col-md-9">
-                <div class="row no-gutters justify-content-between align-items-end">
-                    <div class="profile">
-                        <div class="name"><?= $user['full_name'] ?></div>
-                        <div class="email"><?= $user['email'] ?></div>
-                        <div class="phone"><?= $user['phone'] ?></div>
-                        <div class="college"><?= $user['college_name'] ?></div>
-                    </div>
-                    <div class="edit">
-                        <a href="edit_profile.php"><div class="edit-profile">Edit Profile</div></a>
-                    </div>
+                <div class="profile">
+                    <div class="name"><?= $user['full_name'] ?></div>
+                    <div class="email"><?= $user['email'] ?></div>
+                    <div class="phone"><?= $user['phone'] ?></div>
+                    <div class="college"><?= $user['college_name'] ?></div>
                 </div>
+            </div>
+            <div class="edit-btn">
+                <a href="edit_profile.php" class="edit-profile"><div class="btn btn-primary">Edit Profile</div></a>
             </div>
         </div>
     </div>
@@ -172,8 +172,6 @@ if (!$user) {
     <?php
     include "includes/footer.php";
     ?>
-
-    <script type="text/javascript" src="js/dashboard.js"></script>
 </body>
 
 </html>
